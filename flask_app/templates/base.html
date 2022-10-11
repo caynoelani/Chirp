@@ -20,30 +20,142 @@
     <title>{%  block title %}{% endblock %}</title>
 </head>
 <body>
-    <header>
-        <nav class="nav">
-            <a class="nav-link active" aria-current="page" href="#">
-                <i class="fa-solid fa-house"></i>
-            </a>
-            <a class="nav-link" href="#">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </a>
-            <a class="nav-link" href="#">
-                <i class="fa-solid fa-bell"></i>
-            </a>
-            <a class="nav-link disabled">
-                <i class="fa-solid fa-envelope"></i>
-            </a>
+    <div class="container-fluid container-md">
+        <!-- MOBILE NAVBAR -->
+        <nav class="fixed-bottom d-sm-none border-top">
+            <div class="container-fluid">
+                <div class="row">
+                    <a class="nav-link col-4 text-center" href="{{ url_for('home_page') }}">
+                        <i class="fa-solid fa-house fs-2 py-3"></i>
+                    </a>
+                    <a class="nav-link col-4 text-center disabled" href="#">
+                        <i class="fa-solid fa-magnifying-glass fs-2 py-3"></i>
+                    </a>
+                    <a class="nav-link col-4 text-center disabled" href="#">
+                        <i class="fa-solid fa-bell fs-2 py-3"></i>
+                    </a>
+                </div>
+            </div>
         </nav>
-    </header>
 
-    <main>
-        {% block main %}
-        {% endblock %}
-    </main>
+        <div class="row">
+            <!-- LEFT NAVBAR -->
+            <nav class="left_navbar d-none col-sm-2 d-sm-block col-lg-3 d-flex flex-column border-end ">
+                <a class="nav-link d-flex text-warning" href="{{ url_for('home_page') }}">
+                    <i class="fa-solid fa-kiwi-bird fs-2 py-3"></i>
+                    <p class="d-none d-lg-block fs-4 pt-3 ps-2">Chirp</p>
+                </a>
+                <a class="nav-link d-flex align-items-center justify-content-sm-end justify-content-md-start" href="{{ url_for('home_page') }}">
+                    <i class="fa-solid fa-house fs-2 py-3"></i>
+                    <p class="d-none d-lg-block fs-4 pt-3 ps-2">Home</p>
+                </a>
+                <a class="nav-link d-flex align-items-center d-block d-md-none  justify-content-sm-end justify-content-md-start justify-content-sm-end justify-content-md-start disabled" href="#">
+                    <i class="fa-solid fa-magnifying-glass fs-2 py-3 "></i>
+                    <p class="d-none d-lg-block fs-4 pt-3 ps-2">Search</p>
+                </a>
+                <a class="nav-link d-flex align-items-center justify-content-sm-end justify-content-md-start" href="{{ url_for('notifications_page') }}">
+                    <i class="fa-solid fa-bell fs-2 py-3"></i>
+                    <p class="d-none d-lg-block fs-4 pt-3 ps-2">Notifications</p>
+                </a>
+                <a class="nav-link d-flex align-items-center justify-content-sm-end justify-content-md-start" href="{{ url_for('bookmarks_page') }}">
+                    <i class="fa-solid fa-bookmark fs-2 py-3"></i>
+                    <p class="d-none d-lg-block fs-4 pt-3 ps-2">Bookmarks</p>
+                </a>
+                <a class="nav-link d-flex align-items-center justify-content-sm-end justify-content-md-start" href="{{ url_for('profile_page') }}">
+                    <i class="fa-solid fa-user fs-2 py-3"></i>
+                    <p class="d-none d-lg-block fs-4 pt-3 ps-2">Profile</p>
+                </a>
+            </nav>
 
-    <footer>
+            <!-- MAIN SECTION -->
+            <main class="main col-12 col-sm-10 col-lg-6">
+                <div class="row d-flex align-items-center ps-1">
+                    <div class="col-1 pt-2">
+                        <div class="fs-4 fw-bold">{% block page %}{% endblock %}</div>
+                        <div class="fs-6">{% block handle %}{% endblock %}</div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    {% block mainContent %}
+                    {% endblock %}
+                </div>
+            </main>
 
-    </footer>
+
+        <!-- RIGHT SIDE BAR -->
+        <div class="right-nav col-lg-3 d-none d-lg-block  w-25 h-25">
+            <div class="">
+                <div class="bg-opacity-10 bg-black rounded-pill">
+                    <div class="row d-flex align-items-center ">
+                        <div class="col-2 text-end fs-4">
+                            <span><i class="fa-solid fa-magnifying-glass ps-4"></i></span>
+                        </div>
+                        <div class="col-10"><input type="text"
+                                class="form-control-lg border-0 me-1 w-75 bg-transparent"
+                                placeholder="Search Chirp"></div>
+                    </div>
+                </div>
+                <div class="row bg-opacity-10 bg-black mx-1 my-2 pb-3 rounded-3">
+                    <div class="col">
+                        <div class="trending">
+                            <p class="fs-6 fw-bold py-2">Recommended for you</p>
+
+                            <div>
+                                <div class="row">
+                                    <div class="col-9">
+                                        <p class="m-0">Title</p>
+                                    </div>
+                                    <div class="col-3 text-end">
+                                        <span><i class="fa-solid fa-ellipsis pe-2"></i></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="fs-6 fw-bold mb-0">Hashtag</p>
+                                        <p class="">##.#k Chirps</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="row">
+                                    <div class="col-9">
+                                        <p class="m-0">Title</p>
+                                    </div>
+                                    <div class="col-3 text-end">
+                                        <span><i class="fa-solid fa-ellipsis pe-2"></i></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="fs-6 fw-bold mb-0">Hashtag</p>
+                                        <p class="">##.#k Chirps</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="row">
+                                    <div class="col-9">
+                                        <p class="m-0">Title</p>
+                                    </div>
+                                    <div class="col-3 text-end">
+                                        <span><i class="fa-solid fa-ellipsis pe-2"></i></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="fs-6 fw-bold mb-0">Hashtag</p>
+                                        <p class="">##.#k Chirps</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <span class="text-warning">Show more</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
 </body>
 </html>

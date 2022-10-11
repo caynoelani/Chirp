@@ -16,7 +16,7 @@ load_dotenv()
 #===================================
 #  Import Controllers
 #===================================
-from flask_app.controllers import user_controller
+from flask_app.controllers import user_controller, main_controller
 
 #******************************************************
 #***********************SWITCH*************************

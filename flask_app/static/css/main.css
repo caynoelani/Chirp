@@ -1,0 +1,63 @@
+/* RESETS */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    letter-spacing: .07rem;
+}
+
+:root {
+    --color-primary: #2F4858;
+    --color-secondary: #FFEECB;
+    --color-tertiary: #FFC107;
+    /* --color-accent: #0085bd;
+    --color-light: #ffffff;
+    --color-dark: #313131; */
+
+    /* --font-size-default: 1rem;
+    --font-size-title-secondary: 2rem;
+    --font-size-title-primary: 3rem;
+
+    --font-family-default: Helvetica, Arial, sans-serif;
+    --font-family-title-primary: 'Pixel Digivolve', Helvetica, Arial, sans-serif; */
+}
+
+body {
+    color: var(--color-secondary);
+    background-color: var(--color-primary);
+}
+
+a {
+    text-decoration: none;
+    display: inline-block;
+    color: var(--color-secondary);
+    cursor: pointer;
+}
+
+li::marker {
+    content: '';
+}
+
+img {
+    border: 1px solid var(--color-secondary);
+}
+
+/* NAVBAR */
+.left_navbar{
+    position: sticky;
+    top: 0px;
+    /* height: fit-content; */
+}
+
+.main-feed {
+
+}
+
+.right-nav{
+    position: fixed;
+    right: 30px;
+    top: 10px;
+}

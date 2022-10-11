@@ -1,0 +1,99 @@
+{% extends 'base.html'%}
+
+{%  block title %} Notifications {% endblock %}
+
+{%  block page %} Notifications {% endblock %}
+
+{% block mainContent %}
+<div class="col pt-2">
+    <nav class="nav nav-tabs">
+        <a class="nav-link w-50 text-center" aria-current="page" href="{{ url_for('notifications_page') }}">All</a>
+        <a class="nav-link w-50 text-center bg-warning active" href="{{ url_for('mentions_page') }}">Mentions</a>
+    </nav>
+
+    <div class="row mt-1 border d-flex  ">
+        <div class="col-3 mt-2">
+            <img class="rounded-circle" src="./asserts/images/profile.jfif" alt="" height="50px">
+        </div>
+        <div class="col-9 ">
+            <div class="row d-flex justify-content-between align-items-center ps-1">
+                <div class="col-10 pt-2 ">
+                    <p><span class="fw-bold">Username</span> @userhandle . XXh</p>
+                </div>
+                <div class="col-1 me-2 ps-0">
+                    <div><span><i class="fa-solid fa-ellipsis fs-5 py-3"></i></span></div>
+                </div>
+            </div>
+            <div class="col">
+                Lorem ipsum  Lorem ipsum  Lorem ipsum  Lorem ipsum
+                <br>
+                <div class="row pt-4">
+                    <div class="col"><span><i class="fa-solid fa-comment"></i></span></div>
+                    <div class="col"><span><i class="fa-solid fa-retweet"></i></span>
+                    </div>
+                    <div class="col"><i class="fa-solid fa-heart"></i></div>
+                    <div class="col"><span><i class="fa-solid fa-bookmark"></i></span></div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row mt-1 border d-flex  ">
+        <div class="col-3 mt-2">
+            <img class="rounded-circle" src="./asserts/images/profile.jfif" alt="" height="50px">
+        </div>
+        <div class="col-9 ">
+            <div class="row d-flex justify-content-between align-items-center ps-1">
+                <div class="col-10 pt-2 ">
+                    <p><span class="fw-bold">Username </span>@userhandle . XXh</p>
+                </div>
+                <div class="col-1 me-2 ps-0">
+                    <div><span><i class="fa-solid fa-ellipsis fs-5 py-3"></i></span></div>
+                </div>
+            </div>
+            <div class="col">
+                Lorem ipsum  Lorem ipsum  Lorem ipsum  Lorem ipsum
+                <br>
+                <div class="row pt-4">
+                    <div class="col"><span><i class="fa-solid fa-comment"></i></span></div>
+                    <div class="col"><span><i class="fa-solid fa-retweet"></i></span>
+                    </div>
+                    <div class="col"><i class="fa-solid fa-heart"></i></div>
+                    <div class="col"><span><i class="fa-solid fa-bookmark"></i></span></div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row mt-1 border d-flex  ">
+        <div class="col-3 mt-2">
+            <img class="rounded-circle" src="./asserts/images/profile.jfif" alt="" height="50px">
+        </div>
+        <div class="col-9 ">
+            <div class="row d-flex justify-content-between align-items-center ps-1">
+                <div class="col-10 pt-2 ">
+                    <p><span class="fw-bold">Username </span>@userhandle . XXh</p>
+                </div>
+                <div class="col-1 me-2 ps-0">
+                    <div><span><i class="fa-solid fa-ellipsis fs-5 py-3"></i></span></div>
+                </div>
+            </div>
+            <div class="col">
+                Lorem ipsum  Lorem ipsum  Lorem ipsum  Lorem ipsum
+                <br>
+                <div class="row pt-4">
+                    <div class="col"><span><i class="fa-solid fa-comment"></i></span></div>
+                    <div class="col"><span><i class="fa-solid fa-retweet"></i></span>
+                    </div>
+                    <div class="col"><i class="fa-solid fa-heart"></i></div>
+                    <div class="col"><span><i class="fa-solid fa-bookmark"></i></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

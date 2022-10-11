@@ -25,7 +25,7 @@ bcrypt = Bcrypt(app)
 #=====================================
 # Login/Register Route
 #=====================================
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/login', methods=['POST', 'GET'])
 def login_page():
 
     return render_template('login.html')
