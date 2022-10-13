@@ -5,7 +5,7 @@
 #=====================================
 # Import app
 #=====================================
-from flask_app import app
+from flask_app import app, debug
 
 #=====================================
 # Import Modules/Packages
@@ -29,3 +29,5 @@ bcrypt = Bcrypt(app)
 def login_page():
 
     return render_template('login.html')
+
+app.after_request(debug.sql_debug)

@@ -8,28 +8,63 @@
 from flask_app import db
 from datetime import datetime
 
+
 #******************************************************
-#***********************MODELS************************
+#*****************ASSOCIATION TABLES*******************
 #******************************************************
 
 #=====================================
 # Bookmark
 #=====================================
-class Bookmark(db.Model):
-    __tablename__ = 'bookmarks'
-    id = db.Column(db.Integer, primary_key=True)
-    created_at = db.Column(db.Date, default=datetime.utcnow)
-    update_at = db.Column(db.Date, default=datetime.utcnow)
+bookmarks = db.Table('bookmarks',
+    db.Column('id', db.Integer, primary_key=True, autoincrement=True),
+    db.Column('created_at', db.Date, default=datetime.utcnow),
+    db.Column('update_at', db.Date, default=datetime.utcnow),
 
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+    db.Column('post_id', db.Integer, db.ForeignKey('post.id')),
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+)
+
+
+#=====================================
+# Follow
+#=====================================
+follows = db.Table('follows',
+    db.Column('id', db.Integer, primary_key=True, autoincrement=True),
+    db.Column('created_at', db.Date, default=datetime.utcnow),
+    db.Column('update_at', db.Date, default=datetime.utcnow),
+
+    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('followee_id', db.Integer, db.ForeignKey('user.id')),
+)
+
+
+#=====================================
+# Like
+#=====================================
+likes = db.Table('likes',
+    db.Column('id', db.Integer, primary_key=True, autoincrement=True),
+    db.Column('created_at', db.Date, default=datetime.utcnow),
+    db.Column('updated_at', db.Date, default=datetime.utcnow),
+
+    db.Column('repost_id', db.Integer, db.ForeignKey('repost.id')),
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('post_id', db.Integer, db.ForeignKey('post.id')),
+    db.Column('comment_id', db.Integer, db.ForeignKey('comment.id')),
+)
+
+
+
+#******************************************************
+#***********************MODELS*************************
+#******************************************************
 
 #=====================================
 # Comment
 #=====================================
 class Comment(db.Model):
     __tablename__ = 'comments'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     comment = db.Comlumn(db.String(255), nullable=False)
     created_at = db.Column(db.Date, default=datetime.utcnow)
     update_at = db.Column(db.Date, default=datetime.utcnow)
@@ -38,33 +73,7 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     repost_id = db.Column(db.Integer, db.ForeignKey('repost.id'))
 
-    likes = db.relationship('Like', backref='comment')
-
-#=====================================
-# Follow
-#=====================================
-class Follow(db.Model):
-    __tablename__ = 'follows'
-    id = db.Column(db.Integer, primary_key=True)
-    created_at = db.Column(db.Date, default=datetime.utcnow)
-    update_at = db.Column(db.Date, default=datetime.utcnow)
-
-    follower_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    followee_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-#=====================================
-# Like
-#=====================================
-class Like(db.Model):
-    __tablename__ = 'likes'
-    id = db.Column(db.Integer, primary_key=True)
-    created_at = db.Column(db.Date, default=datetime.utcnow)
-    update_at = db.Column(db.Date, default=datetime.utcnow)
-
-    repost_id = db.Column(db.Integer, db.ForeignKey('repost.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
-    comment_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
+    likes = db.relationship('Like', secondary=likes, backref='comment')
 
 
 #=====================================
@@ -72,16 +81,16 @@ class Like(db.Model):
 #=====================================
 class Post(db.Model):
     __tablename__ = 'posts'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     chirp = db.Comlumn(db.String(255), nullable=False)
     created_at = db.Column(db.Date, default=datetime.utcnow)
     update_at = db.Column(db.Date, default=datetime.utcnow)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    bookmarks = db.relationship('Bookmark', backref='post')
+    bookmarks = db.relationship('Bookmark', secondary=bookmarks,backref='post')
     comments = db.relationship('Comment', backref='post')
-    likes = db.relationship('Like', backref='post')
+    likes = db.relationship('Like', secondary=likes, backref='post')
     reposts = db.relationship('Repost', backref='post')
 
 
@@ -90,7 +99,7 @@ class Post(db.Model):
 #=====================================
 class Repost(db.Model):
     __tablename__ = 'reposts'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     text = db.Comlumn(db.String(255))
     created_at = db.Column(db.Date, default=datetime.utcnow)
     update_at = db.Column(db.Date, default=datetime.utcnow)
@@ -99,7 +108,7 @@ class Repost(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     comments = db.relationship('Comment', backref='repost')
-    likes = db.relationship('Like', backref='repost')
+    likes = db.relationship('Like', secondary=likes, backref='repost')
 
 
 #=====================================
@@ -107,7 +116,7 @@ class Repost(db.Model):
 #=====================================
 class User(db.Model):
     __tablename__ = "users"
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     first_name = db.Column(db.String(255))
     last_name = db.Column(db.String(255))
     username = db.Column(db.String(255), unique=True, nullable=False)
@@ -119,10 +128,11 @@ class User(db.Model):
     created_at = db.Column(db.Date, default=datetime.utcnow)
     update_at = db.Column(db.Date, default=datetime.utcnow)
 
-    bookmarks = db.relationship('Bookmark', backref='user')
+    bookmarks = db.relationship('Bookmark', secondary=bookmarks,backref='user')
     comments = db.relationship('Comment', backref='user')
-    follows = db.relationship('Follow', backref='user')
-    likes = db.relationship('Like', backref='user')
+    follower = db.relationship('User', secondary=follows, backref='followees')
+    followees= db.relationship('User', secondary=follows, backref='followers')
+    likes = db.relationship('Like', secondary=likes, backref='user')
     posts = db.relationship('Post', backref='user')
     reposts = db.relationship('Repost', backref='user')
 
